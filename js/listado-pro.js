@@ -98,4 +98,17 @@ tbody?.addEventListener('click', async (e) => {
   }
 });
 
+// Permitir filtro desde el topbar cuando no hay input local
+window.filtrarProductos = function(q) {
+  // Reutilizamos la lógica existente: setear filtro y re-render
+  // Usa las mismas variables que ya declaraste en el archivo
+  // Si el archivo actual define 'filtro' y 'renderTabla', esto funcionará:
+  if (typeof renderTabla === 'function') {
+    filtro = q || '';
+    renderTabla();
+  }
+};
+
 document.addEventListener('DOMContentLoaded', cargarProductos);
+
+

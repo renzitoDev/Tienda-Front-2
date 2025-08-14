@@ -240,5 +240,13 @@ async function onDelete(id) {
   }
 }
 
+window.filtrarClientes = function(q) {
+  if (typeof renderTabla === 'function') {
+    filtro = q || '';
+    renderTabla();
+  }
+};
+
+
 // Inicializar
 document.addEventListener('DOMContentLoaded', cargarClientes);
