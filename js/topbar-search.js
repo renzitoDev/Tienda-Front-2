@@ -10,7 +10,8 @@ const TB = {
   view: 'otra',
 };
 
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
+// No usamos $ para no interferir con jQuery/Bootstrap
+const $$ = (sel, ctx = document) => ctx.querySelector(sel);
 
 function getView() {
   const path = (location.pathname || '').toLowerCase();
@@ -22,7 +23,7 @@ function getView() {
 
 function ensureRefs() {
   TB.input = document.querySelector('.navbar-search input.form-control.bg-light');
-  TB.dropdown = $('#topbar-search-dropdown');
+  TB.dropdown = $$('#topbar-search-dropdown');
   TB.view = getView();
 }
 
@@ -206,7 +207,7 @@ function handleKey(e) {
 
 // Reusa filtro local de la vista
 function syncWithLocalSearch(value) {
-  const localInput = $('#search-input');
+  const localInput = $$('#search-input');
   if (localInput) {
     if (localInput.value !== value) localInput.value = value;
     localInput.dispatchEvent(new Event('input', { bubbles: true }));

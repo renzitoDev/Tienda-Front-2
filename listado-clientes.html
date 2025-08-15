@@ -400,30 +400,32 @@
     <script src="js/listado-clientes.js"></script>
 
 
-  <!-- Bridge: Editar desde modal VER -->
-  <script>
-    // listado-clientes.js define window.clienteActual al ver un cliente
-    window.editarCliente = function () {
-      if (window.clienteActual && window.$) {
-        $('#editarClienteModal').modal('show');
-        document.getElementById('edit-id-cliente').value =
-          window.clienteActual.id_cliente || '';
-        document.getElementById('edit-nombre').value =
-          window.clienteActual.nombre || '';
-        document.getElementById('edit-apellido').value =
-          window.clienteActual.apellido || '';
-        document.getElementById('edit-email').value =
-          window.clienteActual.email || '';
-        document.getElementById('edit-celular').value =
-          window.clienteActual.celular || '';
-        document.getElementById('edit-direccion').value =
-          window.clienteActual.direccion || '';
-        document.getElementById('edit-direccion2').value =
-          window.clienteActual.direccion2 || '';
-        document.getElementById('edit-descripcion').value =
-          window.clienteActual.descripcion || '';
-      }
-    };
-  </script>
+<!-- ... tu código anterior ... -->
+
+<!-- Bridge: Editar desde modal VER -->
+<script>
+  // listado-clientes.js define window.clienteActual al ver un cliente
+  window.editarCliente = function() {
+    if (window.clienteActual && window.jQuery) {
+      window.jQuery('#editarClienteModal').modal('show');
+      document.getElementById('edit-id-cliente').value =
+        window.clienteActual.id_cliente || '';
+      document.getElementById('edit-nombre').value =
+        window.clienteActual.nombre || '';
+      document.getElementById('edit-apellido').value =
+        window.clienteActual.apellido || '';
+      document.getElementById('edit-email').value =
+        window.clienteActual.email || '';
+      document.getElementById('edit-celular').value =
+        window.clienteActual.celular || '';
+      document.getElementById('edit-direccion').value =
+        window.clienteActual.direccion || '';
+      document.getElementById('edit-direccion2').value =
+        window.clienteActual.direccion2 || '';
+      document.getElementById('edit-descripcion').value =
+        window.clienteActual.descripcion || '';
+    }
+  };
+</script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 // js/listado-clientes.js
 
-// Endpoint base del backend
 const API_CLIENTES = 'http://localhost/backend-apiCrud/index.php?url=clientes';
 
 // Selectores
@@ -36,9 +35,8 @@ const btnGuardarEdicion = document.getElementById('btn-guardar-edicion');
 let clientes = [];
 let filtro = '';
 
-// Helpers
 const escapeHTML = (str) =>
-  String(str ?? '').replace(/[&<>"']/g, (s) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  String(str ?? '').replace(/[&<>"']/g, (s) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
 
 function matchesFilter(c, q) {
   if (!q) return true;
@@ -135,7 +133,6 @@ tbody?.addEventListener('click', async (e) => {
   }
 });
 
-// Ver cliente en modal existente
 async function onView(id) {
   try {
     const c = await getById(id);
@@ -146,14 +143,13 @@ async function onView(id) {
     modalView.direccion2.textContent = c.direccion2 || 'No especificada';
     modalView.descripcion.textContent = c.descripcion || 'Sin descripción';
     window.clienteActual = c; // opcional
-    if (window.$) $('#verClienteModal').modal('show');
+    if (window.jQuery) window.jQuery('#verClienteModal').modal('show');
   } catch (err) {
     console.error(err);
     alert(err.message || 'Error al obtener el cliente');
   }
 }
 
-// Abrir modal de edición con datos precargados
 async function onEdit(id) {
   try {
     const c = await getById(id);
@@ -165,14 +161,13 @@ async function onEdit(id) {
     editFields.direccion.value = c.direccion ?? '';
     editFields.direccion2.value = c.direccion2 ?? '';
     editFields.descripcion.value = c.descripcion ?? '';
-    if (window.$) $('#editarClienteModal').modal('show');
+    if (window.jQuery) window.jQuery('#editarClienteModal').modal('show');
   } catch (err) {
     console.error(err);
     alert(err.message || 'No se pudo cargar el cliente para edición');
   }
 }
 
-// Guardar cambios (PUT)
 editForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const id = editFields.id.value;
@@ -187,7 +182,6 @@ editForm?.addEventListener('submit', async (e) => {
     descripcion: editFields.descripcion.value.trim(),
   };
 
-  // Validaciones mínimas
   const errors = [];
   if (!payload.nombre) errors.push('El nombre es obligatorio.');
   if (!payload.apellido) errors.push('El apellido es obligatorio.');
@@ -203,7 +197,6 @@ editForm?.addEventListener('submit', async (e) => {
 
   try {
     await api('PUT', payload);
-    // Actualizar en memoria y re-renderizar sin recargar toda la lista del servidor
     clientes = clientes.map((c) => String(c.id_cliente) === String(id) ? {
       ...c,
       nombre: payload.nombre,
@@ -215,7 +208,7 @@ editForm?.addEventListener('submit', async (e) => {
       descripcion: payload.descripcion,
     } : c);
     renderTabla();
-    if (window.$) $('#editarClienteModal').modal('hide');
+    if (window.jQuery) window.jQuery('#editarClienteModal').modal('hide');
     alert('Cliente actualizado con éxito');
   } catch (err) {
     console.error(err);
@@ -226,7 +219,6 @@ editForm?.addEventListener('submit', async (e) => {
   }
 });
 
-// Eliminar cliente
 async function onDelete(id) {
   if (!confirm('¿Eliminar este cliente?')) return;
   try {
@@ -247,6 +239,4 @@ window.filtrarClientes = function(q) {
   }
 };
 
-
-// Inicializar
 document.addEventListener('DOMContentLoaded', cargarClientes);
